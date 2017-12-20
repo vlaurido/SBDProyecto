@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      {% if role == "Cliente" %}
+        <li><a href="{% url 'listDishesClient' %}">Listar Platillos</a></li>
+        <li><a href="{% url 'searchDishes' %}">Buscar Platillos</a></li>
+        <li><a href="{% url 'orderLunch' %}">Ordenar Almuerzo</a></li>
+      {% elif role == "Ayudante" %}
+        <li><a href="{% url 'newDish' %}">Agregar Platillo</a></li>
+        <li><a href="{% url 'listDishesAssistant' %}">Mostrar Platillos</a></li>
+        <li><a href="{% url 'listCategoryDishes' %}">Mostrar Platillos por categoría</a></li>
+        <li><a href="{% url 'postLunch' %}">Publicar Almuerzo</a></li>
+      {% elif role == "Administrador" %}
+        <li><a href="{% url 'newRestaurant' %}">Agregar Restaurante</a></li>
+        <li><a href="{% url 'listRestaurant' %}">Listar Restaurantes</a></li>
+        <li><a href="{% url 'newUser' %}">Agregar Usuario</a></li>
+      {% endif %}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <a href="{% url 'logout' %}" class="btn btn-lg btn-danger btn-block" role="button">Cerrar Sesión</a>
+    </ul>
+  </div>
+</nav>
+
+{% block content2 %}
+
+{% endblock content2 %}
+
+{% endblock content %}
