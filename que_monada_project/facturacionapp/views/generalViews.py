@@ -42,6 +42,7 @@ def home(request):
     empleado = request.user.empleado
     return render(request, 'home.html', {'empleado': empleado, })
 
+#CRUD CLIENTE
 @login_required()
 @user_passes_test(verificar_empleado, login_url='facturacionapp:noAccess')
 def nuevoCliente(request):
@@ -79,3 +80,55 @@ def editarCliente(request, id_cliente):
         if form.is_valid():
             form.save()
         return redirect('mainapp:verClientes')
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+def eliminarCliente(request, id_cliente):
+    cliente = Cliente.objects.get(cedula=id_cliente)
+    cliente.delete()
+    return redirect('mainapp:verClientes')
+
+#CRUD TOALLA
+@login_required()
+@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+def nuevaToalla(request):
+    if request.method == "POST":
+        form = FormToalla(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('mainapp:home')
+    elif request.method == "GET":
+        form = FormProducto()
+        return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Toalla', 'form': form})
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+def verToallas(request):
+    if request.method == "POST":
+        nombre = request.POST["nombre"]
+        toallas = Toalla.objects.filter(nombre__contains=nombre)
+        return render(request, 'listToallas.html', {'empleado': request.user.empleado,'toallas': toallas})
+    elif request.method == "GET":
+        return render(request, 'listToallas.html', {'empleado': request.user.empleado,})
+
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+def editarToalla(request, id_toalla):
+    toalla = Toalla.objects.get(codigo=id_toalla)
+    if request.method == "GET":
+        form = FormToalla(instance=toalla)
+        return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Edicion', 'objeto': 'Toalla', 'form': form})
+    elif request.method == "POST":
+        form = FormProducto(request.POST, instance=toalla)
+        if form.is_valid():
+            form.save()
+        return redirect('mainapp:verToallas')
+
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+def eliminarToalla(request, id_toalla):
+    toalla = Toalla.objects.get(codigo=id_toalla)
+    toalla.delete()
+    return redirect('mainapp:verToallas')
