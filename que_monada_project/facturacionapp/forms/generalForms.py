@@ -78,15 +78,15 @@ class FormArreglo(forms.ModelForm):
 
         ]
         labels = {
-            'nombre': 'Nombre del producto',
-            'precio_venta': 'Precio de venta del producto',
-            'tamanio': 'Tamanio del producto',
+            'nombre': 'Nombre del arreglo',
+            'precio_venta': 'Precio de venta del arreglo',
+            'tamanio': 'Tamanio del arreglo',
             'canasta': 'Lleva canasta',
             'grabado': 'Lleva grabado',
         }
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre', 'placeholder': 'Nombre del producto aqui'}),
-            'precio_venta': forms.NumberInput(attrs={'class':'form-control', 'id': 'precio_venta', 'placeholder': 'Precio del producto aqui', 'step': 0.01}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre', 'placeholder': 'Nombre del arreglo aqui'}),
+            'precio_venta': forms.NumberInput(attrs={'class':'form-control', 'id': 'precio_venta', 'placeholder': 'Precio del arreglo aqui', 'step': 0.01}),
             'tamanio': forms.Select(attrs={'class': 'form-control', 'id': 'tamanio'}),
             'canasta': forms.Select(attrs={'class': 'form-control', 'id': 'canasta'}),
             'grabado': forms.Select(attrs={'class': 'form-control', 'id': 'grabado'}),

@@ -78,6 +78,7 @@ class Toalla(models.Model):
         verbose_name = "Producto"
         verbose_name_plural = "Productos"
 
+"""
 #SIN FORM
 class Asignacion(models.Model):
     #relaciones
@@ -93,6 +94,7 @@ class Asignacion(models.Model):
     class Meta:
         verbose_name = "Asignacion"
         verbose_name_plural = "Asignaciones"
+"""
 
 class Factura(models.Model):
     #relaciones
