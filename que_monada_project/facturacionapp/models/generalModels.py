@@ -2,6 +2,7 @@ from django.db import models, connection
 from django.contrib.auth.models import User
 
 
+
 class Cliente(models.Model):
     #atributos
     cedula = models.CharField(primary_key=True, max_length=10)
@@ -9,7 +10,7 @@ class Cliente(models.Model):
     apellido = models.CharField(max_length=50)
     direccion = models.TextField(max_length=50)
     numero_telefonico = models.CharField(max_length=10)
-    correo = models.EmailField(max_length=50)
+    correo = models.EmailField(max_length=50, null=True, blank=True)
 
     #metodos
     def __unicode__(self):
@@ -22,13 +23,15 @@ class Cliente(models.Model):
         verbose_name_plural = "Clientes"
 
 class Empleado(models.Model):
+    #relaciones
+    usuario = models.OneToOneField(User, related_name="empleado", on_delete=models.CASCADE)
+
     #atributos
     cedula = models.CharField(primary_key=True, max_length=10)
-    usuario = models.OneToOneField(User, related_name="empleado")
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     salario = models.FloatField()
-    rango = models.TextField(max_length=50, choices=(("ADMINISTRADOR", "Administrador"),
+    rango = models.CharField(max_length=50, choices=(("ADMINISTRADOR", "Administrador"),
                                                      ("EMPLEADO", "Empleado")))
 
     #metodos
@@ -43,11 +46,13 @@ class Empleado(models.Model):
 
 class Arreglo(models.Model):
     #atributos
+    codigo = models.CharField(primary_key=True, max_length=20)
     nombre = models.CharField(max_length=50)
     precio_venta = models.FloatField()
-    tamanio = models.TextField(max_length=50, choices=(('PEQUENIO', 'Pequenino'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
-    canasta = models.TextField(max_length=50, choices=(('SI', 'Si'), ('NO', 'No')))
-    grabado = models.TextField(max_length=50, choices=(('SI', 'Si'), ('NO', 'No')))
+    tamanio = models.CharField(max_length=50, choices=(('PEQUEÑO', 'Pequeño'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
+    canasta = models.CharField(max_length=50, choices=(('SI', 'Si'), ('NO', 'No')))
+    grabado = models.CharField(max_length=50, choices=(('SI', 'Si'), ('NO', 'No')))
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -56,8 +61,13 @@ class Arreglo(models.Model):
         return self.nombre
 
     class Meta:
-        verbose_name = "Producto"
-        verbose_name_plural = "Productos"
+        verbose_name = "Arreglo"
+        verbose_name_plural = "Arreglos"
+
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
 
 class Toalla(models.Model):
     #atributos
@@ -75,8 +85,8 @@ class Toalla(models.Model):
         return self.nombre
 
     class Meta:
-        verbose_name = "Producto"
-        verbose_name_plural = "Productos"
+        verbose_name = "Toalla"
+        verbose_name_plural = "Toallas"
 
 """
 #SIN FORM
@@ -98,8 +108,8 @@ class Asignacion(models.Model):
 
 class Factura(models.Model):
     #relaciones
-    cliente = models.ForeignKey(Cliente)
-    empleado = models.ForeignKey(Empleado)
+    cliente = models.ForeignKey(Cliente,  on_delete=models.CASCADE)
+    empleado = models.ForeignKey(Empleado,  on_delete=models.CASCADE)
 
     #atributos
     codigo = models.TextField(max_length=10)
@@ -119,8 +129,8 @@ class Factura(models.Model):
 
 class DetalleFactura(models.Model):
     #relaciones
-    cod_factura = models.ForeignKey(Factura)
-    cod_producto = models.ForeignKey(Producto)
+    cod_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    cod_arreglo = models.ForeignKey(Arreglo, on_delete=models.CASCADE)
     #cod_empleado = models.ForeignKey(Empleado)
 
     #atributos
@@ -138,12 +148,12 @@ class DetalleFactura(models.Model):
 
 class Inventario(models.Model):
     #relaciones
-    cod_producto = models.ForeignKey(Producto)
+    cod_toalla = models.ForeignKey(Toalla,  on_delete=models.CASCADE)
 
     #atributos
     fecha = models.DateField()
     transaccion = models.TextField(max_length=20, choices=(('ENTRADA', 'Entrada'), ('SALIDA', 'Salida')))
-    cantidad_producto = models.IntegerField()
+    cantidad_toalla = models.IntegerField()
 
     #metodos
     def __unicode__(self):

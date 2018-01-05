@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models.generalModels import *
+from datetime import date
+from facturacionapp.models.generalModels import *
 
 class FormCliente(forms.ModelForm):
     class Meta:
@@ -14,31 +15,31 @@ class FormCliente(forms.ModelForm):
             'correo',
         ]
         labels = {
-            'cedula': 'Cedula del cliente',
-            'nombre': 'Nombre del cliente',
-            'apellido': 'Apellido del cliente',
-            'direccion': 'Direccion del cliente',
-            'numero_telefonico': 'Numero de telf.',
-            'correo': 'Correo electronico',
+            'cedula': 'Cédula del cliente*',
+            'nombre': 'Nombre del cliente*',
+            'apellido': 'Apellido del cliente*',
+            'direccion': 'Dirección del cliente*',
+            'numero_telefonico': 'Número telefónico*',
+            'correo': 'Correo electrónico',
         }
         widgets = {
             'cedula': forms.TextInput(attrs={'class': 'form-control', 'id': 'cedula',
-                                             'placeholder': 'Cedula del cliente aqui'}),
+                                             'placeholder': 'Cédula del cliente aquí'}),
 
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre',
-                                             'placeholder': 'Nombre del cliente aqui'}),
+                                             'placeholder': 'Nombre del cliente aquí'}),
 
             'apellido': forms.TextInput(attrs={'class': 'form-control', 'id': 'apellido',
-                                               'placeholder': 'Apellido del cliente aqui'}),
+                                               'placeholder': 'Apellido del cliente aquí'}),
 
             'direccion': forms.TextInput(attrs={'class': 'form-control', 'id': 'direccion',
-                                                'placeholder': 'Direccion del cliente aqui'}),
+                                                'placeholder': 'Dirección del cliente aquí'}),
 
             'numero_telefonico': forms.TextInput(attrs={'class': 'form-control', 'id': 'numero_telefonico',
-                                                        'placeholder': 'Numero telefonico del cliente aqui'}),
+                                                        'placeholder': 'Número telefónico del cliente aquí'}),
 
             'correo': forms.TextInput(attrs={'class': 'form-control', 'id': 'correo',
-                                             'placeholder': 'Correo electronico del cliente aqui'})
+                                             'placeholder': 'Correo electrónico del cliente aquí'})
         }
 
 class FormEmpleado(forms.ModelForm):
@@ -55,7 +56,7 @@ class FormEmpleado(forms.ModelForm):
             'cedula': 'Cedula del empleado',
             'nombre': 'Nombre del empleado',
             'apellido': 'Apellido del empleado',
-            'salario': 'Salaro del empleado',
+            'salario': 'Salario del empleado',
             'rango': 'Rango del empleado',
         }
         widgets = {
@@ -67,9 +68,11 @@ class FormEmpleado(forms.ModelForm):
         }
 
 class FormArreglo(forms.ModelForm):
+    borrado = False
     class Meta:
         model = Arreglo
         fields = [
+            'codigo',
             'nombre',
             'precio_venta',
             'tamanio',
@@ -78,13 +81,15 @@ class FormArreglo(forms.ModelForm):
 
         ]
         labels = {
+            'codigo': 'Código del arreglo',
             'nombre': 'Nombre del arreglo',
             'precio_venta': 'Precio de venta del arreglo',
-            'tamanio': 'Tamanio del arreglo',
+            'tamanio': 'Tamaño del arreglo',
             'canasta': 'Lleva canasta',
             'grabado': 'Lleva grabado',
         }
         widgets = {
+            'codigo': forms.TextInput(attrs={'class': 'form-control', 'id': 'codigo', 'placeholder': 'Codigo del arreglo aqui'}),
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre', 'placeholder': 'Nombre del arreglo aqui'}),
             'precio_venta': forms.NumberInput(attrs={'class':'form-control', 'id': 'precio_venta', 'placeholder': 'Precio del arreglo aqui', 'step': 0.01}),
             'tamanio': forms.Select(attrs={'class': 'form-control', 'id': 'tamanio'}),
@@ -104,7 +109,7 @@ class FormToalla(forms.ModelForm):
 
         ]
         labels = {
-            'codigo': 'Codigo de la toalla'
+            'codigo': 'Codigo de la toalla',
             'color': 'Color de la toalla',
             'precio_compra': 'Precio de compra de la toalla',
             'tamanio': 'Tamanio de la toalla',
@@ -143,15 +148,15 @@ class FormDetalleFactura(forms.ModelForm):
     class Meta:
         model = DetalleFactura
         fields = [
-            'cod_producto',
+            'cod_arreglo',
             'cantidad'
         ]
         labels = {
-            'cod_producto' : 'Producto',
+            'cod_arreglo' : 'Arreglo',
             'cantidad' : 'Cantidad',
         }
         widgets = {
-            'cod_producto' : forms.Select(),
+            'cod_arreglo' : forms.Select(),
             'cantidad' : forms.NumberInput(attrs={'min':'1'}),
         }
 

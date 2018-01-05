@@ -6,8 +6,8 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.forms.formsets import formset_factory
 
-from .models.generalModels import *
-from .forms.generalForms import *
+from facturacionapp.models.generalModels import *
+from facturacionapp.forms.generalForms import *
 
 #METODOS DE VERIFICACIONs
 def verificar_empleado(user):
@@ -48,13 +48,13 @@ def home(request):
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_empleado, login_url='facturacionapp:noAccess')
+@user_passes_test(verificar_empleado, login_url='noAccess')
 def nuevoCliente(request):
     if request.method == "POST":
         form = FormCliente(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:home')
+        return redirect('home')
     elif request.method == "GET":
         form = FormCliente()
         return render(request, 'baseform.html', {'accion': 'Ingreso',
@@ -64,7 +64,7 @@ def nuevoCliente(request):
 
 #READ
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url=':noAccess')
 def verClientes(request):
     if request.method == "POST":
         ncedula = request.POST["cedula"]
@@ -75,7 +75,7 @@ def verClientes(request):
 
 #UPDATE
 @login_required()
-@user_passes_test(verificar_empleado, login_url='mainapp:noAccess')
+@user_passes_test(verificar_empleado, login_url='noAccess')
 def editarCliente(request, id_cliente):
     cliente = Cliente.objects.get(cedula=id_cliente)
     if request.method == "GET":
@@ -85,35 +85,35 @@ def editarCliente(request, id_cliente):
         form = FormCliente(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:verClientes')
+        return redirect('verClientes')
 
 #DELETE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url=':noAccess')
 def eliminarCliente(request, id_cliente):
     cliente = Cliente.objects.get(cedula=id_cliente)
     cliente.delete()
-    return redirect('mainapp:verClientes')
+    return redirect('verClientes')
 
 
 #CRUD TOALLA
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def nuevaToalla(request):
     if request.method == "POST":
         form = FormToalla(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:home')
+        return redirect('home')
     elif request.method == "GET":
         form = FormToalla()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Toalla', 'form': form})
 
 #READ
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def verToallas(request):
     if request.method == "POST":
         nombre = request.POST["nombre"]
@@ -124,7 +124,7 @@ def verToallas(request):
 
 #UPDATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def editarToalla(request, id_toalla):
     toalla = Toalla.objects.get(codigo=id_toalla)
     if request.method == "GET":
@@ -134,45 +134,45 @@ def editarToalla(request, id_toalla):
         form = FormToalla(request.POST, instance=toalla)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:verToallas')
+        return redirect('verToallas')
 
 #DELETE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def eliminarToalla(request, id_toalla):
     toalla = Toalla.objects.get(codigo=id_toalla)
     toalla.delete()
-    return redirect('mainapp:verToallas')
+    return redirect('verToallas')
 
 #CRUD ARREGLO
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def nuevoArreglo(request):
     if request.method == "POST":
         form = FormArreglo(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:home')
+        return redirect('home')
     elif request.method == "GET":
         form = FormArreglo()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Arreglo', 'form': form})
 
 #READ
 @login_required()
-@user_passes_test(verificar_empleado, login_url='mainapp:noAccess')
+@user_passes_test(verificar_empleado, login_url='noAccess')
 def verArreglos(request):
     if request.method == "POST":
         nombre = request.POST["nombre"]
-        arreglos = Arreglo.objects.filter(nombre__contains=nombre)
+        arreglos = Arreglo.objects.filter(nombre__contains=nombre, borrado=False)
         return render(request, 'listArreglos.html', {'empleado': request.user.empleado,'arreglos': arreglos})
     elif request.method == "GET":
         return render(request, 'listArreglos.html', {'empleado': request.user.empleado,})
 
 #UPDATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def editarArreglo(request, id_arreglo):
     arreglo = Arreglo.objects.get(codigo=id_arreglo)
     if request.method == "GET":
@@ -182,42 +182,42 @@ def editarArreglo(request, id_arreglo):
         form = FormArreglo(request.POST, instance=arreglo)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:verArreglos')
+        return redirect('verArreglos')
 
 #DELETE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def eliminarArreglo(request, id_arreglo):
     arreglo = Arreglo.objects.get(codigo=id_arreglo)
     arreglo.delete()
-    return redirect('mainapp:verArreglos')
+    return redirect('verArreglos')
 
 
 #CRUD INVENTARIO
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def nuevoInventario(request):
     if request.method == "POST":
         form = FormInventario(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:home')
+        return redirect('home')
     elif request.method == "GET":
         form = FormInventario()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Registro de inventario', 'form': form})
 
 #READ
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def verInventarios(request):
     inventarios = Inventario.objects.all()
     return render(request, 'listInventarios.html', {'empleado': request.user.empleado,'registros': inventarios})
 
 #UPDATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def editarInventario(request, id_registro):
     registro = Inventario.objects.get(id=id_registro)
     if request.method == "GET":
@@ -230,7 +230,7 @@ def editarInventario(request, id_registro):
         form = FormInventario(request.POST, instance=registro)
         if form.is_valid():
             form.save()
-        return redirect('mainapp:verInvetarios')
+        return redirect('verInvetarios')
 
 #NO HAY DELETE INVENTARIO, YA QUE NO ES UNA TRANSACCION OPTIMA
 
@@ -238,7 +238,7 @@ def editarInventario(request, id_registro):
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_caja, login_url='mainapp:noAccess')
+@user_passes_test(verificar_empleado, login_url='noAccess')
 def nuevaFactura(request):
     formfactura = FormFactura()
     detalle_formset = formset_factory(FormDetalleFactura)
@@ -255,7 +255,7 @@ def nuevaFactura(request):
                 nuevodetalle.cod_factura = factura
                 #nuevodetalle.cod_empleado = factura.empleado
                 detalle_form.save()
-            return redirect('mainapp:home')
+            return redirect('home')
     elif request.method == "GET":
         return render(request, 'formFactura.html', {'formfactura': formfactura,
                                                     'detalle_formset': detalle_formset,
@@ -268,7 +268,7 @@ def nuevaFactura(request):
 
 #CREATE
 @login_required()
-@user_passes_test(verificar_admin, login_url='mainapp:noAccess')
+@user_passes_test(verificar_admin, login_url='noAccess')
 def nuevo_empleado(request):
     if request.method == 'POST':
         newUser = FormUser(request.POST)
@@ -280,7 +280,7 @@ def nuevo_empleado(request):
             empleado = newEmployee.save(commit=False)
             empleado.usuario = user
             empleado.save()
-        return redirect('mainapp:home')
+        return redirect('home')
     else:
         newUser = FormUser()
         newEmployee = FormEmpleado()
