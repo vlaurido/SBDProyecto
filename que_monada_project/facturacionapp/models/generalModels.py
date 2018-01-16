@@ -11,6 +11,7 @@ class Cliente(models.Model):
     direccion = models.TextField(max_length=50)
     numero_telefonico = models.CharField(max_length=10)
     correo = models.EmailField(max_length=50, null=True, blank=True)
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -21,6 +22,11 @@ class Cliente(models.Model):
     class Meta:
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
+
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
 
 class Empleado(models.Model):
     #relaciones
@@ -72,11 +78,12 @@ class Arreglo(models.Model):
 class Toalla(models.Model):
     #atributos
     codigo = models.CharField(primary_key=True, max_length=20)
-    color = models.TextField(max_length=50, choices=(('AMARILLO', 'Amarillo'), ('AZUL', 'Azul'), ('ROJO', 'Rojo'), ('VERDE', 'Verde'),
+    color = models.TextField(max_length=50, choices=(('AMARILLO', 'Amarillo'), ('AZUL', 'Azul'), ('ROJO', 'Rojo'), ('VERDE OSCURO', 'Verde oscuro'), ('VERDE CLARO', 'Verde claro'),
     ('NARANJA', 'Naranja'), ('MORADO', 'morado'), ('FUCSIA', 'Fucsia'), ('TURQUESA', 'Turquesa')))
     precio_compra = models.FloatField()
-    tamanio = models.TextField(max_length=50, choices=(('PEQUENIO', 'Pequenino'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
+    tamanio = models.TextField(max_length=50, choices=(('PEQUENIO', 'Pequeño'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
     stock = models.IntegerField()
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -87,6 +94,11 @@ class Toalla(models.Model):
     class Meta:
         verbose_name = "Toalla"
         verbose_name_plural = "Toallas"
+
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
 
 """
 #SIN FORM

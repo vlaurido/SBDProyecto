@@ -4,16 +4,28 @@
 
 <head><title>Qué Monada</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/sweetalert.css' %}" type="text/css">
+
 </head>
 
 <body>
   <div class="page-header">
-    <h1>Qué Monada</h1>
+    <h1 class="icon-monada"><img src="img/monada_opt.jpg"/>Qué Monada</h1>
   </div>
 
 {% block content %}
 
 {% endblock content %}
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-confirmation.min.js' %}"></script>
+<script src="{% static 'js/sweetalert.js' %}"></script>
+
+{% block extra_js %}
+
+{% endblock extra_js %}
+
 
 </body>
 

@@ -34,6 +34,7 @@ video {
   display: inline-block;
   vertical-align: baseline;
 }
+
 audio:not([controls]) {
   display: none;
   height: 0;
@@ -238,6 +239,11 @@ th {
   h3 {
     page-break-after: avoid;
   }
+
+  .icon-monada{
+	margin: 5px;
+  }
+
   .navbar {
     display: none;
   }
@@ -1097,7 +1103,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: #FE2E9A;
   text-decoration: none;
 }
 a:hover,
@@ -3174,8 +3180,8 @@ fieldset[disabled] .btn-primary.focus {
 }
 .btn-success {
   color: #fff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color: #FE2E9A;
+  border-color: #FE2E9A;
 }
 .btn-success:focus,
 .btn-success.focus {
@@ -3185,8 +3191,8 @@ fieldset[disabled] .btn-primary.focus {
 }
 .btn-success:hover {
   color: #fff;
-  background-color: #449d44;
-  border-color: #398439;
+  background-color: #FA58AC;
+  border-color: #FA58AC;
 }
 .btn-success:active,
 .btn-success.active,
@@ -6761,7 +6767,7 @@ button.close {
 @import "bourbon";
 
 body {
-	background: #f3e5f5 !important;
+	background: #F2E0F7 !important;
 }
 
 .wrapper {

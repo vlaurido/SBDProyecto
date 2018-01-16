@@ -4,6 +4,7 @@ from datetime import date
 from facturacionapp.models.generalModels import *
 
 class FormCliente(forms.ModelForm):
+    borrado = False
     class Meta:
         model = Cliente
         fields = [
@@ -36,7 +37,7 @@ class FormCliente(forms.ModelForm):
                                                 'placeholder': 'Dirección del cliente aquí'}),
 
             'numero_telefonico': forms.TextInput(attrs={'class': 'form-control', 'id': 'numero_telefonico',
-                                                        'placeholder': 'Número telefónico del cliente aquí'}),
+                                                        'placeholder': 'Número telefónico del cliente aquí', 'type': 'number'}),
 
             'correo': forms.TextInput(attrs={'class': 'form-control', 'id': 'correo',
                                              'placeholder': 'Correo electrónico del cliente aquí'})
@@ -98,6 +99,7 @@ class FormArreglo(forms.ModelForm):
         }
 
 class FormToalla(forms.ModelForm):
+    borrado = False
     class Meta:
         model = Toalla
         fields = [
@@ -109,11 +111,11 @@ class FormToalla(forms.ModelForm):
 
         ]
         labels = {
-            'codigo': 'Codigo de la toalla',
+            'codigo': 'Código de la toalla',
             'color': 'Color de la toalla',
             'precio_compra': 'Precio de compra de la toalla',
-            'tamanio': 'Tamanio de la toalla',
-            'stock': 'Stock de la toalla',
+            'tamanio': 'Tamaño de la toalla',
+            'stock': 'Stock adquirido',
         }
         widgets = {
             'codigo': forms.TextInput(attrs={'class': 'form-control', 'id': 'codigo', 'placeholder': 'Codigo de la toalla aqui'}),

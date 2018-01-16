@@ -64,11 +64,11 @@ def nuevoCliente(request):
 
 #READ
 @login_required()
-@user_passes_test(verificar_admin, login_url=':noAccess')
+@user_passes_test(verificar_empleado, login_url=':noAccess')
 def verClientes(request):
     if request.method == "POST":
         ncedula = request.POST["cedula"]
-        clientes = Cliente.objects.filter(cedula__contains=ncedula)
+        clientes = Cliente.objects.filter(cedula__contains=ncedula, borrado=False)
         return render(request, 'listClientes.html', {'empleado': request.user.empleado,'clientes': clientes})
     elif request.method == "GET":
         return render(request, 'listClientes.html', {'empleado': request.user.empleado,})
@@ -116,8 +116,8 @@ def nuevaToalla(request):
 @user_passes_test(verificar_admin, login_url='noAccess')
 def verToallas(request):
     if request.method == "POST":
-        nombre = request.POST["nombre"]
-        toallas = Toalla.objects.filter(nombre__contains=nombre)
+        codigo = request.POST["codigo"]
+        toallas = Toalla.objects.filter(codigo__contains=codigo, borrado=False)
         return render(request, 'listToallas.html', {'empleado': request.user.empleado,'toallas': toallas})
     elif request.method == "GET":
         return render(request, 'listToallas.html', {'empleado': request.user.empleado,})
