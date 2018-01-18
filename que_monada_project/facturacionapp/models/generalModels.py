@@ -39,6 +39,7 @@ class Empleado(models.Model):
     salario = models.FloatField()
     rango = models.CharField(max_length=50, choices=(("ADMINISTRADOR", "Administrador"),
                                                      ("EMPLEADO", "Empleado")))
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -49,6 +50,11 @@ class Empleado(models.Model):
     class Meta:
         verbose_name = "Empleado"
         verbose_name_plural = "Empleados"
+
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
 
 class Arreglo(models.Model):
     #atributos
@@ -100,34 +106,17 @@ class Toalla(models.Model):
             self.borrado = True
             self.save()
 
-"""
-#SIN FORM
-class Asignacion(models.Model):
-    #relaciones
-    toalla = models.ForeignKey(Toalla)
-    arreglo = models.ForeignKey(Arreglo)
-
-    #metodos
-    def __unicode__(self):
-        return self.codigo
-    def __str__(self):
-        return self.codigo
-
-    class Meta:
-        verbose_name = "Asignacion"
-        verbose_name_plural = "Asignaciones"
-"""
-
 class Factura(models.Model):
     #relaciones
-    cliente = models.ForeignKey(Cliente,  on_delete=models.CASCADE)
-    empleado = models.ForeignKey(Empleado,  on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente,  on_delete=models.DO_NOTHING)
+    empleado = models.ForeignKey(Empleado,  on_delete=models.DO_NOTHING)
 
     #atributos
     codigo = models.TextField(max_length=10)
     fecha = models.DateField()
     tipo_pago = models.CharField(max_length=20, choices=(('CREDITO', 'Credito'), ('EFECTIVO', 'Efectivo')),
                                  default='EFECTIVO', null=False, blank=False)
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -139,14 +128,20 @@ class Factura(models.Model):
         verbose_name = "Factura"
         verbose_name_plural = "Facturas"
 
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
+
 class DetalleFactura(models.Model):
     #relaciones
     cod_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
-    cod_arreglo = models.ForeignKey(Arreglo, on_delete=models.CASCADE)
+    cod_arreglo = models.ForeignKey(Arreglo, on_delete=models.DO_NOTHING)
     #cod_empleado = models.ForeignKey(Empleado)
 
     #atributos
     cantidad = models.IntegerField()
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -158,14 +153,20 @@ class DetalleFactura(models.Model):
         verbose_name = "Detalle de Factura"
         verbose_name_plural = "Detalles de Factura"
 
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()
+
 class Inventario(models.Model):
     #relaciones
-    cod_toalla = models.ForeignKey(Toalla,  on_delete=models.CASCADE)
+    cod_toalla = models.ForeignKey(Toalla,  on_delete=models.DO_NOTHING)
 
     #atributos
     fecha = models.DateField()
     transaccion = models.TextField(max_length=20, choices=(('ENTRADA', 'Entrada'), ('SALIDA', 'Salida')))
     cantidad_toalla = models.IntegerField()
+    borrado = models.BooleanField(default=False)
 
     #metodos
     def __unicode__(self):
@@ -176,3 +177,8 @@ class Inventario(models.Model):
     class Meta:
         verbose_name = "Inventario"
         verbose_name_plural = "Inventarios"
+
+    def delete(self):
+        if not self.borrado:
+            self.borrado = True
+            self.save()

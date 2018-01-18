@@ -44,6 +44,7 @@ class FormCliente(forms.ModelForm):
         }
 
 class FormEmpleado(forms.ModelForm):
+    borrado = False
     class Meta:
         model = Empleado
         fields = [
@@ -54,17 +55,17 @@ class FormEmpleado(forms.ModelForm):
             'rango',
         ]
         labels = {
-            'cedula': 'Cedula del empleado',
+            'cedula': 'Cédula del empleado',
             'nombre': 'Nombre del empleado',
             'apellido': 'Apellido del empleado',
             'salario': 'Salario del empleado',
             'rango': 'Rango del empleado',
         }
         widgets = {
-            'cedula' : forms.TextInput(attrs={'class':'form-control','id':'cedula','placeholder':'Cedula del empleado aqui'}),
-            'nombre' : forms.TextInput(attrs={'class':'form-control','id':'nombre','placeholder':'Nombre del empleado aqui'}),
-            'apellido' : forms.TextInput(attrs={'class':'form-control','id':'apellido','placeholder':'Apellido del empleado aqui'}),
-            'salario' : forms.NumberInput(attrs={'class':'form-control','id':'salario','placeholder':'Salario del empleado aqui','min': 366}),
+            'cedula' : forms.TextInput(attrs={'class':'form-control','id':'cedula','placeholder':'Cédula del empleado aquí'}),
+            'nombre' : forms.TextInput(attrs={'class':'form-control','id':'nombre','placeholder':'Nombre del empleado aquí'}),
+            'apellido' : forms.TextInput(attrs={'class':'form-control','id':'apellido','placeholder':'Apellido del empleado aquí'}),
+            'salario' : forms.NumberInput(attrs={'class':'form-control','id':'salario','placeholder':'Salario del empleado aquí','min': 386}),
             'rango' : forms.Select(attrs={'class':'form-control','id':'rango','placeholder':'Seleccione rango del empleado'}),
         }
 
@@ -90,9 +91,9 @@ class FormArreglo(forms.ModelForm):
             'grabado': 'Lleva grabado',
         }
         widgets = {
-            'codigo': forms.TextInput(attrs={'class': 'form-control', 'id': 'codigo', 'placeholder': 'Codigo del arreglo aqui'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre', 'placeholder': 'Nombre del arreglo aqui'}),
-            'precio_venta': forms.NumberInput(attrs={'class':'form-control', 'id': 'precio_venta', 'placeholder': 'Precio del arreglo aqui', 'step': 0.01}),
+            'codigo': forms.TextInput(attrs={'class': 'form-control', 'id': 'codigo', 'placeholder': 'Código del arreglo aquí'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'id': 'nombre', 'placeholder': 'Nombre del arreglo aquí'}),
+            'precio_venta': forms.NumberInput(attrs={'class':'form-control', 'id': 'precio_venta', 'placeholder': 'Precio del arreglo aquí', 'step': 0.01}),
             'tamanio': forms.Select(attrs={'class': 'form-control', 'id': 'tamanio'}),
             'canasta': forms.Select(attrs={'class': 'form-control', 'id': 'canasta'}),
             'grabado': forms.Select(attrs={'class': 'form-control', 'id': 'grabado'}),
@@ -126,6 +127,7 @@ class FormToalla(forms.ModelForm):
         }
 
 class FormFactura(forms.ModelForm):
+    borrado = False
     fecha = forms.DateField(widget=forms.SelectDateWidget(),initial=date.today,label='Fecha de facturacion')
     class Meta:
         model = Factura
@@ -147,6 +149,7 @@ class FormFactura(forms.ModelForm):
         }
 
 class FormDetalleFactura(forms.ModelForm):
+    borrado = False
     class Meta:
         model = DetalleFactura
         fields = [
@@ -163,6 +166,7 @@ class FormDetalleFactura(forms.ModelForm):
         }
 
 class FormInventario(forms.ModelForm):
+    borrado = False
     fecha = forms.DateField(widget=forms.SelectDateWidget(),initial=date.today,label='Fecha de ingreso/salida')
     class Meta:
         model = Inventario
@@ -196,7 +200,7 @@ class FormUser(forms.ModelForm):
         }
         widgets = {
             'username': forms.TextInput
-                (attrs={'class': 'form-control', 'id': 'username', 'placeholder': 'Su nombre de usuario aqui'}),
+                (attrs={'class': 'form-control', 'id': 'username', 'placeholder': 'Su nombre de usuario aquí'}),
             'password': forms.PasswordInput
-                (attrs={'class': 'form-control', 'id': 'password', 'placeholder': 'Su contraseña aqui'}),
+                (attrs={'class': 'form-control', 'id': 'password', 'placeholder': 'Su contraseña aquí'}),
         }

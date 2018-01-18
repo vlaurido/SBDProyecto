@@ -32,7 +32,6 @@
             <td>{{ cliente.direccion }}</td>
             <td>{{ cliente.nombre }}</td>
             <td>{{ cliente.apellido }}</td>
-            <!-- <td><a href="{% url 'eliminarCliente' cliente.cedula %}" data-toggle="confirmation" data-singleton="true">Eliminar</a></td> -->
             <td><a href="#" onclick="confirmationDelete('{% url 'eliminarCliente' cliente.cedula %}')"><b>Eliminar</b></a></td>
             <td><a href="{% url 'editarCliente' cliente.cedula %}"><b>Actualizar</b></a></td>
           </tr>

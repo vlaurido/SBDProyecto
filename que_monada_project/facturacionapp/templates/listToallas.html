@@ -6,7 +6,7 @@
 
   <form method="post">
     {% csrf_token %}
-    Ingrese el codigo:
+    Ingrese el código:
     <input type="text" name="codigo">
     <button class="btn btn-primary" type="submit" style="margin-top: 0;">Buscar</button>
   </form>
@@ -30,8 +30,8 @@
           <td>{{ toalla.color }}</td>
           <td>{{ toalla.tamanio }}</td>
           <td>{{ toalla.stock }}</td>
-          <td><a href="{% url 'eliminarToalla' toalla.codigo %}">Eliminar</a></td>
-          <td><a href="{% url 'editarToalla' toalla.codigo %}">Actualizar</a></td>
+          <td><a href="#" onclick="confirmationDelete('{% url 'eliminarToalla' toalla.codigo %}')"><b>Eliminar</b></a></td>
+          <td><a href="{% url 'editarToalla' toalla.codigo %}"><b>Actualizar</b></a></td>
         </tr>
         {% empty %}
         <h3 class='panel-title' style="margin: 0.75em;">
@@ -45,3 +45,30 @@
 </main>
 
 {% endblock content2 %}
+
+{% block extra_js %}
+<script>
+  function confirmationDelete(url){
+    swal({
+      title: "¿Seguro desea eliminar este registro?",
+      text: "¡Cuidado!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+      closeOnConfirm: false,
+      closeOnCancel: false
+      },
+      function(isConfirm) {
+      if (isConfirm) {
+        window.location.replace(url);
+        swal("¡Borrado!", "El registro ha sido borrado correctamente", "success");
+      } else {
+        swal("¡Cancelado!", "No se ha registrado ningún cambio", "error");
+      }
+    });
+  }
+</script>
+
+{% endblock extra_js %}

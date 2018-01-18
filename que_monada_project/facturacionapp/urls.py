@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^verToalla/$', verToallas, name="verToallas"),
     url(r'^editarToalla/(?P<id_toalla>\w+)/$$', editarToalla, name="editarToalla"),
     url(r'^eliminarToalla/(?P<id_toalla>\w+)/$$', eliminarToalla, name="eliminarToalla"),
+
+    #URLS DE CRUD EMPLEADO
+    url(r'^nuevoEmpleado/$', nuevoEmpleado, name="nuevoEmpleado"),
 ]

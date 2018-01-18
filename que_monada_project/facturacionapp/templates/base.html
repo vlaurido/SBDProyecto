@@ -10,7 +10,7 @@
 
 <body>
   <div class="page-header">
-    <h1 class="icon-monada"><img src="img/monada_opt.jpg"/>Qué Monada</h1>
+    <h1 class="icon-monada"><img src="{% static 'img/monada_opt.jpg' %}"/></h1>
   </div>
 
 {% block content %}
@@ -19,7 +19,6 @@
 
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-confirmation.min.js' %}"></script>
 <script src="{% static 'js/sweetalert.js' %}"></script>
 
 {% block extra_js %}

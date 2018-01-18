@@ -67,8 +67,8 @@ var handleButton = function handleButton(event, params, modal) {
   var normalColor, hoverColor, activeColor;
   if (targetedConfirm && params.confirmButtonColor) {
     normalColor = params.confirmButtonColor;
-    hoverColor = colorLuminance(normalColor, -0.04);
-    activeColor = colorLuminance(normalColor, -0.14);
+    hoverColor = "green";
+    activeColor = "#ff0000";
   }
 
   function shouldSetConfirmButtonColor(color) {

@@ -187,10 +187,10 @@
 }
 @keyframes pulseWarning {
   0% {
-    border-color: #F8D486;
+    border-color: #FE2E9A;
   }
   100% {
-    border-color: #F8BB86;
+    border-color: #FE2E9A;
   }
 }
 .pulseWarning {
@@ -198,10 +198,10 @@
 }
 @keyframes pulseWarningIns {
   0% {
-    background-color: #F8D486;
+    background-color: #FE2E9A;
   }
   100% {
-    background-color: #F8BB86;
+    background-color: #FE2E9A;
   }
 }
 .pulseWarningIns {
@@ -297,7 +297,7 @@ body.stop-scrolling {
   box-sizing: content-box;
 }
 .sweet-alert .sa-icon.sa-error {
-  border-color: #d43f3a;
+  border-color: #FE2E9A;
 }
 .sweet-alert .sa-icon.sa-error .sa-x-mark {
   position: relative;
@@ -307,7 +307,7 @@ body.stop-scrolling {
   position: absolute;
   height: 5px;
   width: 47px;
-  background-color: #d9534f;
+  background-color: #FE2E9A;
   display: block;
   top: 37px;
   border-radius: 2px;
@@ -321,7 +321,7 @@ body.stop-scrolling {
   right: 16px;
 }
 .sweet-alert .sa-icon.sa-warning {
-  border-color: #eea236;
+  border-color: #FE2E9A !important;
 }
 .sweet-alert .sa-icon.sa-warning .sa-body {
   position: absolute;
@@ -331,7 +331,7 @@ body.stop-scrolling {
   top: 10px;
   border-radius: 2px;
   margin-left: -2px;
-  background-color: #f0ad4e;
+  background-color: #FE2E9A !important;
 }
 .sweet-alert .sa-icon.sa-warning .sa-dot {
   position: absolute;
@@ -341,7 +341,7 @@ body.stop-scrolling {
   margin-left: -3px;
   left: 50%;
   bottom: 10px;
-  background-color: #f0ad4e;
+  background-color: #FE2E9A !important;
 }
 .sweet-alert .sa-icon.sa-info {
   border-color: #46b8da;

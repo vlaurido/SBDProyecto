@@ -269,7 +269,7 @@ def nuevaFactura(request):
 #CREATE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
-def nuevo_empleado(request):
+def nuevoEmpleado(request):
     if request.method == 'POST':
         newUser = FormUser(request.POST)
         newEmployee = FormEmpleado(request.POST)

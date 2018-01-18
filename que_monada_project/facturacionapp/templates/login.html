@@ -7,7 +7,7 @@
       {% csrf_token %}
       <h2 class="form-signin-heading" style="text-align: center;">Ingreso al sistema</h2>
       <input type="text" class="form-control" name="username" placeholder="Usuario" required="" autofocus="" style="text-align: center;"/>
-      <input type="password" class="form-control" name="password" placeholder="Contrasenia" required="" style="text-align: center;"/>
+      <input type="password" class="form-control" name="password" placeholder="Contraseña" required="" style="text-align: center;"/>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
       {% if error %}
         <h2 style="color: red;text-align: center;">Credenciales inválidas, intente nuevamente</h2>
