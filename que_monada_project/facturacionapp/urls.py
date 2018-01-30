@@ -31,4 +31,5 @@ urlpatterns = [
 
     #URLS DE CRUD EMPLEADO
     url(r'^nuevoEmpleado/$', nuevoEmpleado, name="nuevoEmpleado"),
+    url(r'^verEmpleados/$', verEmpleados, name="verEmpleados"),
 ]

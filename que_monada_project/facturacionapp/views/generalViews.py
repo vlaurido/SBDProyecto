@@ -261,7 +261,6 @@ def nuevaFactura(request):
                                                     'detalle_formset': detalle_formset,
                                                     'empleado': request.user.empleado, })
 
-#BORRADO FISICO PARA FACTURA(?)
 
 
 #CRUD EMPLEADO
@@ -289,4 +288,13 @@ def nuevoEmpleado(request):
                                           'form1':newUser,'form2':newEmployee,
                                           'empleado': request.user.empleado,})
 
-#BORRADO FISICO PARA EMPLEADO(?)
+#READ
+@login_required()
+@user_passes_test(verificar_admin, login_url=':noAccess')
+def verEmpleados(request):
+    if request.method == "POST":
+        ncedula = request.POST["cedula"]
+        empleados = Empleado.objects.filter(cedula__contains=ncedula, borrado=False)
+        return render(request, 'listEmpleados.html', {'empleado': request.user.empleado,'empleados': empleados})
+    elif request.method == "GET":
+        return render(request, 'listEmpleados.html', {'empleado': request.user.empleado,})
