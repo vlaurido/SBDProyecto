@@ -204,3 +204,9 @@ class FormUser(forms.ModelForm):
             'password': forms.PasswordInput
                 (attrs={'class': 'form-control', 'id': 'password', 'placeholder': 'Su contraseña aquí'}),
         }
+
+class FormDateRange(forms.Form):
+    startDate = forms.DateField(widget=forms.SelectDateWidget(), initial=date.today,
+                           label='Inicio')
+    endDate = forms.DateField(widget=forms.SelectDateWidget(), initial=date.today,
+                           label='Fin')

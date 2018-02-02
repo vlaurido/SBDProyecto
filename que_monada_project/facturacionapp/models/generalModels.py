@@ -66,6 +66,14 @@ class Arreglo(models.Model):
     borrado = models.BooleanField(default=False)
 
     #metodos
+    @staticmethod
+    def get_mas_vendidos(fechaini,fechafin):
+        cursor = connection.cursor()
+        cursor.callproc('tres_mas_vendidos', [fechaini,fechafin])
+        vendidos = cursor.fetchall()
+        cursor.close()
+        return vendidos
+
     def __unicode__(self):
         return self.nombre
     def __str__(self):
@@ -86,11 +94,19 @@ class Toalla(models.Model):
     color = models.TextField(max_length=50, choices=(('AMARILLO', 'Amarillo'), ('AZUL', 'Azul'), ('ROJO', 'Rojo'), ('VERDE OSCURO', 'Verde oscuro'), ('VERDE CLARO', 'Verde claro'),
     ('NARANJA', 'Naranja'), ('MORADO', 'morado'), ('FUCSIA', 'Fucsia'), ('TURQUESA', 'Turquesa')))
     precio_compra = models.FloatField()
-    tamanio = models.TextField(max_length=50, choices=(('PEQUENIO', 'Pequeño'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
+    tamanio = models.TextField(max_length=50, choices=(('PEQUEÑO', 'Pequeño'), ('MEDIANO', 'Mediano'), ('GRANDE', 'Grande')))
     stock = models.IntegerField()
     borrado = models.BooleanField(default=False)
 
     #metodos
+    @staticmethod
+    def get_mas_demandadas(fechaini,fechafin):
+        cursor = connection.cursor()
+        cursor.callproc('top_toalla', [fechaini,fechafin])
+        toalla= cursor.fetchall()
+        cursor.close()
+        return toalla
+
     def __unicode__(self):
         return self.codigo
     def __str__(self):
@@ -119,6 +135,13 @@ class Factura(models.Model):
     borrado = models.BooleanField(default=False)
 
     #metodos
+    def get_ventas(fechaini,fechafin):
+        cursor = connection.cursor()
+        cursor.callproc('total_ventas', [fechaini,fechafin])
+        ventas = cursor.fetchall()
+        cursor.close()
+        return ventas
+
     def __unicode__(self):
         return self.codigo
     def __str__(self):

@@ -45,7 +45,6 @@ def home(request):
 
 #CRUD CLIENTE
 
-
 #CREATE
 @login_required()
 @user_passes_test(verificar_empleado, login_url='noAccess')
@@ -61,7 +60,6 @@ def nuevoCliente(request):
                                                 'objeto': 'Cliente',
                                                 'form': form,
                                                 'empleado': request.user.empleado,})
-
 #READ
 @login_required()
 @user_passes_test(verificar_empleado, login_url=':noAccess')
@@ -72,7 +70,6 @@ def verClientes(request):
         return render(request, 'listClientes.html', {'empleado': request.user.empleado,'clientes': clientes})
     elif request.method == "GET":
         return render(request, 'listClientes.html', {'empleado': request.user.empleado,})
-
 #UPDATE
 @login_required()
 @user_passes_test(verificar_empleado, login_url='noAccess')
@@ -86,7 +83,6 @@ def editarCliente(request, id_cliente):
         if form.is_valid():
             form.save()
         return redirect('verClientes')
-
 #DELETE
 @login_required()
 @user_passes_test(verificar_admin, login_url=':noAccess')
@@ -110,7 +106,6 @@ def nuevaToalla(request):
     elif request.method == "GET":
         form = FormToalla()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Toalla', 'form': form})
-
 #READ
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -121,7 +116,6 @@ def verToallas(request):
         return render(request, 'listToallas.html', {'empleado': request.user.empleado,'toallas': toallas})
     elif request.method == "GET":
         return render(request, 'listToallas.html', {'empleado': request.user.empleado,})
-
 #UPDATE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -135,7 +129,6 @@ def editarToalla(request, id_toalla):
         if form.is_valid():
             form.save()
         return redirect('verToallas')
-
 #DELETE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -158,7 +151,6 @@ def nuevoArreglo(request):
     elif request.method == "GET":
         form = FormArreglo()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Arreglo', 'form': form})
-
 #READ
 @login_required()
 @user_passes_test(verificar_empleado, login_url='noAccess')
@@ -169,7 +161,6 @@ def verArreglos(request):
         return render(request, 'listArreglos.html', {'empleado': request.user.empleado,'arreglos': arreglos})
     elif request.method == "GET":
         return render(request, 'listArreglos.html', {'empleado': request.user.empleado,})
-
 #UPDATE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -183,7 +174,6 @@ def editarArreglo(request, id_arreglo):
         if form.is_valid():
             form.save()
         return redirect('verArreglos')
-
 #DELETE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -207,14 +197,12 @@ def nuevoInventario(request):
     elif request.method == "GET":
         form = FormInventario()
         return render(request, 'baseform.html', {'empleado': request.user.empleado,'accion': 'Ingreso', 'objeto': 'Registro de inventario', 'form': form})
-
 #READ
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
 def verInventarios(request):
     inventarios = Inventario.objects.all()
     return render(request, 'listInventario.html', {'empleado': request.user.empleado,'registros': inventarios})
-
 #UPDATE
 @login_required()
 @user_passes_test(verificar_admin, login_url='noAccess')
@@ -259,17 +247,12 @@ def nuevaFactura(request):
                 nuevodetalle = detalle_form.save(commit=False)
                 nuevodetalle.cod_factura = factura
                 detalle_form.save()
-                #arreglo = Arreglo.objects.filter(codigo=nuevodetalle.cod_arreglo, borrado=False)
-                #print(arreglo)
-                #total += nuevodetalle.cantidad*arreglo.precio_venta
             return redirect('home')
     elif request.method == "GET":
         return render(request, 'formFactura.html', {'formfactura': formfactura,
                                                     'detalle_formset': detalle_formset,
                                                     'empleado': request.user.empleado,
                                                     'total': total })
-
-
 
 #CRUD EMPLEADO
 
@@ -295,7 +278,6 @@ def nuevoEmpleado(request):
                                             'objeto': 'Empleado',
                                           'form1':newUser,'form2':newEmployee,
                                           'empleado': request.user.empleado,})
-
 #READ
 @login_required()
 @user_passes_test(verificar_admin, login_url=':noAccess')
@@ -306,3 +288,45 @@ def verEmpleados(request):
         return render(request, 'listEmpleados.html', {'empleado': request.user.empleado,'empleados': empleados})
     elif request.method == "GET":
         return render(request, 'listEmpleados.html', {'empleado': request.user.empleado,})
+
+#REPORTES
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='noAccess')
+def mas_vendidos(request):
+    top_tres = []
+    if request.method == 'POST':
+        form = FormDateRange(request.POST)
+        if form.is_valid():
+            top_tres = Arreglo.get_mas_vendidos(form.cleaned_data['startDate'],form.cleaned_data['endDate'])
+            return render(request, 'masVendidos.html', {'empleado': request.user.empleado,"top_tres": top_tres, "form":form})
+    else:
+        form = FormDateRange()
+    return render(request, 'masVendidos.html', {'empleado': request.user.empleado,"top_tres": top_tres, "form":form})
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='noAccess')
+def best_toallas(request):
+    toallas = []
+    if request.method == 'POST':
+        form = FormDateRange(request.POST)
+        if form.is_valid():
+            toallas = Toalla.get_mas_demandadas(form.cleaned_data['startDate'],form.cleaned_data['endDate'])
+            return render(request, 'toallas.html', {'empleado': request.user.empleado,"toallas": toallas, "form":form})
+    else:
+        form = FormDateRange()
+    return render(request, 'Toallas.html', {'empleado': request.user.empleado,"toallas": toallas, "form":form})
+
+
+@login_required()
+@user_passes_test(verificar_admin, login_url='noAccess')
+def ventas(request):
+    venta = 0
+    if request.method == 'POST':
+        form = FormDateRange(request.POST)
+        if form.is_valid():
+            venta = Factura.get_ventas(form.cleaned_data['startDate'],form.cleaned_data['endDate'])
+            return render(request, 'totalVentas.html', {'empleado': request.user.empleado,"venta": venta, "form":form})
+    else:
+        form = FormDateRange()
+    return render(request, 'totalVentas.html', {'empleado': request.user.empleado,"venta": venta, "form":form})

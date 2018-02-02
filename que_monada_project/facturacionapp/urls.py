@@ -29,6 +29,11 @@ urlpatterns = [
     url(r'^editarToalla/(?P<id_toalla>\w+)/$$', editarToalla, name="editarToalla"),
     url(r'^eliminarToalla/(?P<id_toalla>\w+)/$$', eliminarToalla, name="eliminarToalla"),
 
+    #URLS DE CRUD INVENTARIO
+    url(r'^nuevoInventario/$', nuevoInventario, name="nuevoInventario"),
+    url(r'^verInventarios/$', verInventarios, name="verInventarios"),
+    url(r'^editarInventario/(?P<id_registro>\d+)/$$', editarInventario, name="editarInventario"),
+
     #URLS DE CRUD EMPLEADO
     url(r'^nuevoEmpleado/$', nuevoEmpleado, name="nuevoEmpleado"),
     url(r'^verEmpleados/$', verEmpleados, name="verEmpleados"),
@@ -36,9 +41,8 @@ urlpatterns = [
     #URLS DE CRUD FACTURA
     url(r'^nuevaFactura/$', nuevaFactura, name="nuevaFactura"),
 
-    #URLS DE CRUD INVENTARIO
-    url(r'^nuevoInventario/$', nuevoInventario, name="nuevoInventario"),
-    url(r'^verInventarios/$', verInventarios, name="verInventarios"),
-    url(r'^editarInventario/(?P<id_registro>\d+)/$$', editarInventario, name="editarInventario"),
-
+    #URLS REPORTES
+    url(r'^arreglosMasVendidos/$', mas_vendidos, name="arreglosMasVendidos"),
+    url(r'^totalVentas/$', ventas, name="totalVentas"),
+    url(r'^bestToallas/$', best_toallas, name="bestToallas"),
 ]

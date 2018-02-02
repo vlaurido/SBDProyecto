@@ -6,55 +6,12 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       {% if empleado.rango == "ADMINISTRADOR" %}
-      <!-- SUB MENU CLIENTE -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'nuevoCliente' %}">Agregar Cliente</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'verClientes' %}">Consultar Clientes</a></li>
-          </ul>
-        </li>
-
-        <!-- SUB MENU ARREGLO -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Arreglo <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'nuevoArreglo' %}">Agregar Arreglo</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'verArreglos' %}">Consultar Arreglo</a></li>
-          </ul>
-        </li>
-
-        <!-- SUB MENU TOALLA-->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Toalla <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'nuevaToalla' %}">Agregar Toalla</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'verToallas' %}">Consultar Stock</a></li>
-          </ul>
-        </li>
-
-        <!-- SUB MENU EMPLEADO -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empleado <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'nuevoEmpleado' %}">Agregar Empleado</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'verEmpleados' %}">Consultar Empleado</a></li>
-          </ul>
-        </li>
 
         <!-- SUB MENU FACTURA -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Factura <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'nuevaFactura' %}">Nueva Factura</a></li>
-          </ul>
-        </li>
+        <li><a href="{% url 'nuevaFactura' %}">Facturar</a></li>
 
-        <!-- SUB MENU FACTURA -->
+
+        <!-- SUB MENU INVENTARIO -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -64,8 +21,64 @@
           </ul>
         </li>
 
+        <!-- SUB MENU REPORTES -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'arreglosMasVendidos' %}">Top 3 Arreglos</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'bestToallas' %}">Top 5 Toallas</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'totalVentas' %}">Consultar total ventas</a></li>
+          </ul>
+        </li>
+
+        <!-- SUB MENU CLIENTE -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'nuevoCliente' %}">Agregar Cliente</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{% url 'verClientes' %}">Consultar Clientes</a></li>
+            </ul>
+          </li>
+
+          <!-- SUB MENU EMPLEADO -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empleado <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'nuevoEmpleado' %}">Agregar Empleado</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{% url 'verEmpleados' %}">Consultar Empleado</a></li>
+            </ul>
+          </li>
+
+          <!-- SUB MENU ARREGLO -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Arreglo <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'nuevoArreglo' %}">Agregar Arreglo</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{% url 'verArreglos' %}">Consultar Arreglo</a></li>
+            </ul>
+          </li>
+
+          <!-- SUB MENU TOALLA-->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Toalla <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'nuevaToalla' %}">Agregar Toalla</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{% url 'verToallas' %}">Consultar Stock</a></li>
+            </ul>
+          </li>
+
 
         {% elif empleado.rango == "EMPLEADO" %}
+        <li><a href="{% url 'nuevaFactura' %}">Facturar</a></li>
+        <li><a href="{% url 'verArreglos' %}">Consultar Arreglos</a></li>
+
+        <!-- SUB MENU CLIENTE -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -74,8 +87,6 @@
             <li><a href="{% url 'verClientes' %}">Consultar Clientes</a></li>
           </ul>
         </li>
-
-
 
       {% endif %}
     </ul>
