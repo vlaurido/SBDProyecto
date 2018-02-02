@@ -32,4 +32,13 @@ urlpatterns = [
     #URLS DE CRUD EMPLEADO
     url(r'^nuevoEmpleado/$', nuevoEmpleado, name="nuevoEmpleado"),
     url(r'^verEmpleados/$', verEmpleados, name="verEmpleados"),
+
+    #URLS DE CRUD FACTURA
+    url(r'^nuevaFactura/$', nuevaFactura, name="nuevaFactura"),
+
+    #URLS DE CRUD INVENTARIO
+    url(r'^nuevoInventario/$', nuevoInventario, name="nuevoInventario"),
+    url(r'^verInventarios/$', verInventarios, name="verInventarios"),
+    url(r'^editarInventario/(?P<id_registro>\d+)/$$', editarInventario, name="editarInventario"),
+
 ]

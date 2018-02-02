@@ -128,7 +128,7 @@ class FormToalla(forms.ModelForm):
 
 class FormFactura(forms.ModelForm):
     borrado = False
-    fecha = forms.DateField(widget=forms.SelectDateWidget(),initial=date.today,label='Fecha de facturacion')
+    fecha = forms.DateField(widget=forms.SelectDateWidget(),initial=date.today,label='Fecha de facturación')
     class Meta:
         model = Factura
         fields = [
@@ -138,13 +138,13 @@ class FormFactura(forms.ModelForm):
             'tipo_pago'
         ]
         labels = {
-            'codigo' : 'Codigo de la factura',
-            'cliente' : 'Codigo del cliente',
+            'codigo' : 'Código de la factura',
+            'cliente' : 'Cédula del cliente',
             'tipo_pago' : 'Tipo de pago'
         }
         widgets = {
-            'codigo': forms.TextInput(attrs={'class':'form-control','id':'codigo','placeholder':'Codigo de la factura aqui'}),
-            'cliente': forms.TextInput(attrs={'class':'form-control','id':'cliente','placeholder':'Cedula del cliente aqui'}),
+            'codigo': forms.TextInput(attrs={'class':'form-control','id':'codigo','placeholder':'Código de la factura aquí'}),
+            'cliente': forms.TextInput(attrs={'class':'form-control','id':'cliente','placeholder':'Cédula del cliente aquí'}),
             'tipo_pago': forms.Select(attrs={'class':'form-control','id':'tipo_pago'})
         }
 
@@ -171,20 +171,20 @@ class FormInventario(forms.ModelForm):
     class Meta:
         model = Inventario
         fields = [
-            'cod_toalla',
             'fecha',
+            'cod_toalla',
             'transaccion',
             'cantidad_toalla',
         ]
         labels = {
-            'cod_toalla' : 'Codigo del producto',
-            'transaccion' : 'Tipo de transaccion',
-            'cantidad_toalla' : 'Cantidad de producto transaccionado',
+            'cod_toalla' : 'Código de la toalla',
+            'transaccion' : 'Tipo de transacción',
+            'cantidad_toalla' : 'Cantidad de producto',
         }
         widgets = {
             'cod_toalla' : forms.Select(attrs={'class': 'form-control'}),
             'transaccion' : forms.Select(attrs={'class': 'form-control'}),
-            'cantidad_toalla' : forms.NumberInput(attrs={'min':1,'class':'form-control','id':'cantidad_toalla','placeholder':'Cantidad de toallas aqui'})
+            'cantidad_toalla' : forms.NumberInput(attrs={'min':1,'class':'form-control','id':'cantidad_toalla','placeholder':'Cantidad de toallas aquí'})
         }
 
 class FormUser(forms.ModelForm):

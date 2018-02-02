@@ -9,7 +9,7 @@ from django.forms.formsets import formset_factory
 from facturacionapp.models.generalModels import *
 from facturacionapp.forms.generalForms import *
 
-#METODOS DE VERIFICACIONs
+#METODOS DE VERIFICACION
 def verificar_empleado(user):
     return user.empleado.rango == "EMPLEADO" or user.empleado.rango == "ADMINISTRADOR"
 
@@ -213,7 +213,7 @@ def nuevoInventario(request):
 @user_passes_test(verificar_admin, login_url='noAccess')
 def verInventarios(request):
     inventarios = Inventario.objects.all()
-    return render(request, 'listInventarios.html', {'empleado': request.user.empleado,'registros': inventarios})
+    return render(request, 'listInventario.html', {'empleado': request.user.empleado,'registros': inventarios})
 
 #UPDATE
 @login_required()
@@ -230,7 +230,7 @@ def editarInventario(request, id_registro):
         form = FormInventario(request.POST, instance=registro)
         if form.is_valid():
             form.save()
-        return redirect('verInvetarios')
+        return redirect('verInventarios')
 
 #NO HAY DELETE INVENTARIO, YA QUE NO ES UNA TRANSACCION OPTIMA
 
@@ -242,9 +242,14 @@ def editarInventario(request, id_registro):
 def nuevaFactura(request):
     formfactura = FormFactura()
     detalle_formset = formset_factory(FormDetalleFactura)
+    total = 0
     if request.method == "POST":
         formfactura = FormFactura(request.POST)
         detalle_formset = detalle_formset(request.POST)
+        #for detalle_form in detalle_formset:
+                #print(detalle_form)
+                #arreglo = Arreglo.objects.filter(codigo=detalle_form.cod_arreglo, borrado=False)
+                #total += detalle_form.cantidad*arreglo.precio_venta
         if formfactura.is_valid() and detalle_formset.is_valid():
             factura = formfactura.save(commit=False)
             factura.empleado = request.user.empleado
@@ -253,13 +258,16 @@ def nuevaFactura(request):
             for detalle_form in detalle_formset:
                 nuevodetalle = detalle_form.save(commit=False)
                 nuevodetalle.cod_factura = factura
-                #nuevodetalle.cod_empleado = factura.empleado
                 detalle_form.save()
+                #arreglo = Arreglo.objects.filter(codigo=nuevodetalle.cod_arreglo, borrado=False)
+                #print(arreglo)
+                #total += nuevodetalle.cantidad*arreglo.precio_venta
             return redirect('home')
     elif request.method == "GET":
         return render(request, 'formFactura.html', {'formfactura': formfactura,
                                                     'detalle_formset': detalle_formset,
-                                                    'empleado': request.user.empleado, })
+                                                    'empleado': request.user.empleado,
+                                                    'total': total })
 
 
 

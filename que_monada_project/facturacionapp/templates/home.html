@@ -46,6 +46,24 @@
           </ul>
         </li>
 
+        <!-- SUB MENU FACTURA -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Factura <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'nuevaFactura' %}">Nueva Factura</a></li>
+          </ul>
+        </li>
+
+        <!-- SUB MENU FACTURA -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'nuevoInventario' %}">Nuevo registro</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'verInventarios' %}">Consultar registros</a></li>
+          </ul>
+        </li>
+
 
         {% elif empleado.rango == "EMPLEADO" %}
         <li class="dropdown">

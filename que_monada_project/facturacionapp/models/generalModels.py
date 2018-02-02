@@ -2,7 +2,6 @@ from django.db import models, connection
 from django.contrib.auth.models import User
 
 
-
 class Cliente(models.Model):
     #atributos
     cedula = models.CharField(primary_key=True, max_length=10)
@@ -93,9 +92,9 @@ class Toalla(models.Model):
 
     #metodos
     def __unicode__(self):
-        return self.nombre
+        return self.codigo
     def __str__(self):
-        return self.nombre
+        return self.codigo
 
     class Meta:
         verbose_name = "Toalla"
@@ -108,13 +107,14 @@ class Toalla(models.Model):
 
 class Factura(models.Model):
     #relaciones
+    #si borro cliente se borra factura
     cliente = models.ForeignKey(Cliente,  on_delete=models.DO_NOTHING)
     empleado = models.ForeignKey(Empleado,  on_delete=models.DO_NOTHING)
 
     #atributos
     codigo = models.TextField(max_length=10)
     fecha = models.DateField()
-    tipo_pago = models.CharField(max_length=20, choices=(('CREDITO', 'Credito'), ('EFECTIVO', 'Efectivo')),
+    tipo_pago = models.CharField(max_length=20, choices=(('CREDITO', 'Crédito'), ('EFECTIVO', 'Efectivo')),
                                  default='EFECTIVO', null=False, blank=False)
     borrado = models.BooleanField(default=False)
 
@@ -135,6 +135,7 @@ class Factura(models.Model):
 
 class DetalleFactura(models.Model):
     #relaciones
+    #si borro factura se borra detalle factura
     cod_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
     cod_arreglo = models.ForeignKey(Arreglo, on_delete=models.DO_NOTHING)
     #cod_empleado = models.ForeignKey(Empleado)
@@ -160,6 +161,7 @@ class DetalleFactura(models.Model):
 
 class Inventario(models.Model):
     #relaciones
+    #si borro toalla se borra inventario
     cod_toalla = models.ForeignKey(Toalla,  on_delete=models.DO_NOTHING)
 
     #atributos
@@ -182,3 +184,19 @@ class Inventario(models.Model):
         if not self.borrado:
             self.borrado = True
             self.save()
+
+class LogArreglo(models.Model):
+    #atributos
+    fecha = models.DateField()
+    operacion = models.CharField(max_length=20, default='Borrado')
+    cod_arreglo = models.CharField(max_length=20)
+
+    #metodos
+    def __unicode__(self):
+        return "%s %s" % (self.operacion,self.cod_arreglo)
+    def __str__(self):
+        return "%s %s" % (self.operacion,self.cod_arreglo)
+
+    class Meta:
+        verbose_name = "LogArreglo"
+        verbose_name_plural = "LogArreglos"

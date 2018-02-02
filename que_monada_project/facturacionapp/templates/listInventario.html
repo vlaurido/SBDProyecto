@@ -1,0 +1,41 @@
+{% extends 'home.html' %}
+
+{% block content2 %}
+
+<main class="container" role='main'>
+  <h2 >
+      Registros de inventario
+  </h2> 
+
+  <div class="panel panel-default">
+    <table id="registros" class="table table-striped table-hover table-responsive">
+      <tr>
+        <thead class="text-center">
+          <th>Fecha</th>
+          <th>Transacción</th>
+          <th>Cód. Toalla</th>
+          <th>Cantidad</th>
+          <th></th>
+        </thead>
+      </tr>
+      <tbody>
+      {% for registro in registros %}
+      <tr>
+        <td>{{ registro.fecha }}</td>
+        <td>{{ registro.transaccion }}</td>
+        <td>{{ registro.cod_toalla }}</td>
+        <td>{{ registro.cantidad_toalla }}</td>
+        <td><a href="{% url 'editarInventario' registro.id %}">Actualizar</a></td>
+      </tr>
+      {% empty %}
+      <h3 class='panel-title' style="margin: 0.75em;">
+        <center>No hay registros de inventario para mostrar</center>
+      </h3>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+{% endblock content2 %}
